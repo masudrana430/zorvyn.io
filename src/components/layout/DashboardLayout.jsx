@@ -59,7 +59,7 @@ export default function DashboardLayout({
 
   return (
     <div
-      className="relative min-h-screen overflow-hidden"
+      className="relative min-h-screen "
       style={{ backgroundColor: "var(--bg)", color: "var(--text)" }}
     >
       {/* Background */}
