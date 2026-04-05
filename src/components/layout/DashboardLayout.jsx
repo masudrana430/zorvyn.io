@@ -159,6 +159,45 @@ export default function DashboardLayout({
             </div>
           </div>
 
+          <div className="px-4 pb-4 sm:hidden">
+            <div className="rounded-2xl p-1 theme-surface-strong">
+              <div
+                className="mb-2 px-2 pt-2 text-[11px] font-semibold uppercase tracking-[0.28em]"
+                style={{ color: "var(--text-muted)" }}
+              >
+                Role Access
+              </div>
+
+              <div className="flex items-center gap-1">
+                <button
+                  type="button"
+                  onClick={() => setRole("viewer")}
+                  className={`flex-1 rounded-xl px-4 py-2.5 text-sm font-semibold transition-all duration-300 ${
+                    role === "viewer"
+                      ? "bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-400 text-white shadow-[0_8px_25px_rgba(75,114,255,0.28)]"
+                      : "text-[var(--text-muted)] hover:text-[var(--text)]"
+                  }`}
+                  aria-pressed={role === "viewer"}
+                >
+                  Viewer
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setRole("admin")}
+                  className={`flex-1 rounded-xl px-4 py-2.5 text-sm font-semibold transition-all duration-300 ${
+                    role === "admin"
+                      ? "bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-400 text-white shadow-[0_8px_25px_rgba(75,114,255,0.28)]"
+                      : "text-[var(--text-muted)] hover:text-[var(--text)]"
+                  }`}
+                  aria-pressed={role === "admin"}
+                >
+                  Admin
+                </button>
+              </div>
+            </div>
+          </div>
+
           {/* Nav */}
           <nav className="flex-1 space-y-2 px-4 py-5">
             {navItems.map(({ name, path, icon: Icon }) => (
@@ -221,8 +260,6 @@ export default function DashboardLayout({
 
           {/* Bottom card */}
           <div className="border-t border-white/10 p-4">
-            
-
             <button className="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-300 transition hover:bg-white/10 hover:text-white">
               <FiLogOut />
               Logout
@@ -262,7 +299,7 @@ export default function DashboardLayout({
 
             <div className="flex flex-1 items-center justify-end gap-3">
               {/* Search */}
-              <div className="relative hidden w-full max-w-md lg:block">
+              <div className="relative w-full sm:max-w-sm lg:max-w-md">
                 <FiSearch
                   className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2"
                   style={{ color: "var(--text-muted)" }}
@@ -349,12 +386,7 @@ export default function DashboardLayout({
                 </div>
               </div>
 
-              <button
-                className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-lg text-white transition hover:bg-white/10 lg:hidden"
-                onClick={() => setMobileOpen(false)}
-              >
-                <FiX />
-              </button>
+              
             </div>
           </div>
         </header>
@@ -372,7 +404,7 @@ export default function DashboardLayout({
 
                 <h3 className="mt-5 max-w-4xl text-3xl font-semibold leading-tight tracking-tight text-white sm:text-4xl xl:text-5xl">
                   Building{" "}
-                  <span className="zorvyn-gradient-text font-extrabold" >
+                  <span className="zorvyn-gradient-text font-extrabold">
                     secure, compliant, and intelligent
                   </span>{" "}
                   financial visibility.
