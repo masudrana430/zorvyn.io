@@ -1,8 +1,8 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useOutletContext } from "react-router-dom";
 import { useAppContext } from "../context/AppContext";
 import { toast } from "react-toastify";
-
+import PageLoader from "../components/common/PageLoader";
 import {
   FiCalendar,
   FiChevronDown,
@@ -19,6 +19,7 @@ import {
   FiX,
 } from "react-icons/fi";
 import ConfirmModal from "../components/common/ConfirmModal";
+
 
 const defaultForm = {
   title: "",
@@ -263,6 +264,16 @@ export default function TransactionsPage() {
   const [editingId, setEditingId] = useState(null);
   const [form, setForm] = useState(defaultForm);
 
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  
+
+
   const openDeleteModal = (transaction) => {
     setDeleteTarget(transaction);
   };
@@ -352,6 +363,10 @@ export default function TransactionsPage() {
       expenses: visibleExpenses,
     };
   }, [filteredTransactions]);
+
+  if (isLoading) {
+    return <PageLoader message="Loading transactions..." />;
+  }
 
   const activeFilterCount = [
     typeFilter !== "all",

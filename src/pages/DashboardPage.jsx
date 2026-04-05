@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useOutletContext } from "react-router-dom";
 import { useAppContext } from "../context/AppContext";
 import {
@@ -27,6 +27,8 @@ import {
   FiTrendingDown,
   FiTrendingUp,
 } from "react-icons/fi";
+import PageLoader from "../components/common/PageLoader";
+import DashboardSkeleton from "../components/common/DashboardSkeleton";
 
 
 
@@ -278,6 +280,8 @@ function SectionCard({
 }
 
 export default function DashboardPage() {
+  const [isLoading, setIsLoading] = useState(true);
+
   const outletContext = useOutletContext() || {};
   const role = outletContext.role || "viewer";
   // const transactions = mockTransactions;
@@ -285,6 +289,13 @@ export default function DashboardPage() {
   // const outletContext = useOutletContext() || {};
   // const role = outletContext.role || "viewer";
 
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 1200);
+    return () => clearTimeout(timer);
+  }, []);
+
+
+ 
   const dashboardData = useMemo(() => {
     if (!transactions.length) {
       return {
@@ -390,6 +401,10 @@ export default function DashboardPage() {
     };
   }, [transactions]);
 
+  if (isLoading) {
+    return <DashboardSkeleton />;
+  }
+
   const {
     totalIncome,
     totalExpenses,
@@ -468,6 +483,12 @@ export default function DashboardPage() {
       </div>
     );
   }
+
+  
+
+  
+
+  
 
   return (
     <div className="space-y-6 lg:space-y-8">
